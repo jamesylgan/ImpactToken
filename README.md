@@ -31,11 +31,11 @@ We were able to think critically about the existing problems and constraints wit
 We learned about token issuance as well as front-end interaction between the blockchain and local databases. We self-taught each other new technical skill sets and programming languages.
 
 # Built With
-javascript
-html5
-css3
-python
-flask
-solidity
-node.js
-mongodb
+* javascript
+* html5
+* css3
+* python
+* flask
+* solidity
+* node.js
+* mongodb
