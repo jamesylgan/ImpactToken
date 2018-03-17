@@ -108,6 +108,7 @@ contract ImpactToken is ERC20Interface, Owned, SafeMath {
     string public name;
     uint8 public decimals;
     uint public _totalSupply;
+    uint public rate = 2000000000000000;
 
     mapping(address => uint) balances;
     mapping(address => mapping(address => uint)) allowed;
@@ -216,8 +217,8 @@ contract ImpactToken is ERC20Interface, Owned, SafeMath {
     // Allow users to buy the token with ether.
     // ------------------------------------------------------------------------
     function purchaseTokens() public payable {
-        require(msg.value >= 2000000000000000);
-        this.transferFrom(owner, msg.sender, msg.value / 200000000000000);
+        require(msg.value >= rate);
+        this.transferFrom(owner, msg.sender, msg.value / rate);
     }
 
     // Allows users to purchase items from marketplace
@@ -226,6 +227,7 @@ contract ImpactToken is ERC20Interface, Owned, SafeMath {
     // TODO: Assert that target is a nonprofit - require(nonprofit=Nonprofit)?
     // TODO: Needs a balanceOf assertion
     function payForItem(address nonprofit, uint value) public {
+        require(balances[msg.sender] >= value);
         transferToken(nonprofit, value);
         Payment(msg.sender, nonprofit, value);
     }
@@ -234,8 +236,9 @@ contract ImpactToken is ERC20Interface, Owned, SafeMath {
     // TODO: Add assertion of nonprofit status
     // TODO: Needs a balanceOf assertion
     function nonprofitClaim(uint give) public {
+        require(balances[msg.sender] >= give);
         transferToken(owner, give);
-        msg.sender.transfer(give * 200000000000000);
+        msg.sender.transfer(give * rate);
     }
 
     // ------------------------------------------------------------------------
