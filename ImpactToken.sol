@@ -225,7 +225,6 @@ contract ImpactToken is ERC20Interface, Owned, SafeMath {
     // Sends out a "Purchase" event to our interface
     // TODO: Add two-way assertion that user paid enough tokens for item
     // TODO: Assert that target is a nonprofit - require(nonprofit=Nonprofit)?
-    // TODO: Needs a balanceOf assertion
     function payForItem(address nonprofit, uint value) public {
         require(balances[msg.sender] >= value);
         transferToken(nonprofit, value);
@@ -234,7 +233,6 @@ contract ImpactToken is ERC20Interface, Owned, SafeMath {
 
     // Asserts that the user is a nonprofit, then exchanges tokens for Ether
     // TODO: Add assertion of nonprofit status
-    // TODO: Needs a balanceOf assertion
     function nonprofitClaim(uint give) public {
         require(balances[msg.sender] >= give);
         transferToken(owner, give);
